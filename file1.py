@@ -139,54 +139,6 @@ with graph.as_default():
     init = tf.global_variables_initializer()
 
 
-# with graph.as_default():
-#
-#     train_inputs = tf.placeholder(tf.int32, shape=[batch_size])
-#     train_context = tf.placeholder(tf.int32, shape=[batch_size, 1])
-#     valid_dataset = tf.constant(valid_examples, dtype=tf.int32)
-#
-#     # Look up embeddings for inputs.
-#     embeddings = tf.Variable(tf.random_uniform([vocabulary_size, embedding_size], -1.0, 1.0))
-#     embed = tf.nn.embedding_lookup(embeddings, train_inputs)
-#
-#     # Construct the variables for the softmax
-#     weights = tf.Variable(tf.truncated_normal([vocabulary_size, embedding_size],
-#                                   stddev=1.0 / math.sqrt(embedding_size)))
-#     biases = tf.Variable(tf.zeros([vocabulary_size]))
-#     hidden_out = tf.matmul(embed, tf.transpose(weights)) + biases
-#
-#     # convert train_context to a one-hot format
-#     train_one_hot = tf.one_hot(train_context, vocabulary_size)
-#
-#     cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=hidden_out,labels=train_one_hot))
-#
-#     # Compute the cosine similarity between minibatch examples and all embeddings.
-#     norm = tf.sqrt(tf.reduce_sum(tf.square(embeddings), 1, keep_dims=True))
-#     normalized_embeddings = embeddings / norm
-#
-#     valid_embeddings = tf.nn.embedding_lookup(normalized_embeddings, valid_dataset)
-#
-#     similarity = tf.matmul(valid_embeddings, normalized_embeddings, transpose_b=True)
-#
-#     # Construct the variables for the NCE loss
-#     nce_weights = tf.Variable(
-#         tf.truncated_normal([vocabulary_size, embedding_size],
-#                             stddev=1.0 / math.sqrt(embedding_size)))
-#     nce_biases = tf.Variable(tf.zeros([vocabulary_size]))
-#
-#     nce_loss = tf.reduce_mean(
-#         tf.nn.nce_loss(weights=nce_weights,
-#                        biases=nce_biases,
-#                        labels=train_context,
-#                        inputs=embed,
-#                        num_sampled=num_sampled,
-#                        num_classes=vocabulary_size))
-#
-#     optimizer = tf.train.GradientDescentOptimizer(1.0).minimize(nce_loss)
-#
-#     # Add variable initializer.
-#     init = tf.global_variables_initializer()
-
 
 def run(graph, num_steps):
     print(graph)
