@@ -8,6 +8,7 @@ import numpy as np
 import random
 import math
 import datetime as dt
+import pickle
 
 train = pd.read_csv("lyrics1_500.csv")
 
@@ -16,8 +17,9 @@ def lyrics_to_words(raw_lyric):
         lyric_text = BeautifulSoup(raw_lyric, "html5lib").get_text()
         letters_only = re.sub("[^a-zA-Z]", " ", lyric_text)
         words = letters_only.lower().split()
-        stops = set(stopwords.words("english"))
-        meaningful_words = [w for w in words if not w in stops]
+        # stops = set(stopwords.words("english"))
+        # meaningful_words = [w for w in words if not w in stops]
+        meaningful_words = [w for w in words]
         return(" ".join(meaningful_words))
 
 num_lyrics = train["Lyrics"].size
@@ -27,11 +29,11 @@ sentences = []
 for i in range(0,num_lyrics):
     if((i+1)%10 == 0):
         print("Lyric %d of %d\n" % ( i+1, num_lyrics ))
-        get_lyrics = lyrics_to_words(train["Lyrics"][i])
-        clean_train_lyrics.append(get_lyrics)
-        for word in get_lyrics.split():
-            if word != ' ':
-                words.append(word)
+    get_lyrics = lyrics_to_words(train["Lyrics"][i])
+    clean_train_lyrics.append(get_lyrics)
+    for word in get_lyrics.split():
+        if word != ' ':
+            words.append(word)
 
 
 def build_dataset(words, n_words):
@@ -178,17 +180,18 @@ def run(graph, num_steps):
               log_str = '%s %s,' % (log_str, close_word)
             print(log_str)
       final_embeddings = normalized_embeddings.eval()
+      return final_embeddings
+      # print(final_embeddings)
+      # print(final_embeddings.shape)
+      # print(final_embeddings[dictionary['sad']])
 
 
 num_steps = 500
 softmax_start_time = dt.datetime.now()
-run(graph, num_steps=num_steps)
+word2vec_model = run(graph, num_steps=num_steps)
+filename = 'Word2Vec_Model'
+pickle.dump(word2vec_model, open(filename, 'wb'))
 softmax_end_time = dt.datetime.now()
 print("Softmax method took {} minutes to run 100 iterations".format((softmax_end_time-softmax_start_time).total_seconds()))
-
-
-# num_steps = 500
-# nce_start_time = dt.datetime.now()
-# run(graph, num_steps)
-# nce_end_time = dt.datetime.now()
-# print("NCE method took {} minutes to run 100 iterations".format((nce_end_time-nce_start_time).total_seconds()))
+file_name = 'Dictionary'
+pickle.dump(dictionary, open(file_name, 'wb'))

@@ -1,0 +1,71 @@
+body{
+	margin:0;
+	padding: 0;
+	background-image: url('back.jpg');
+	background-size: cover;
+	background-position: absolute;
+	color: white;
+	font-family: 'Amatic SC', cursive;
+}
+h1{
+	font-size: 60px;
+}
+.lyrics_box{
+	width: 750px;
+	height: 700px;
+	background-color: rgb(62,62,50,0.4);
+	padding: 30px 40px 70px 30px;
+	position: absolute;
+	box-sizing: border-box;
+	transform: translate(-50%,-50%);
+	/*background:#8b8c93*/;
+	top: 50%;
+	left: 50%
+}
+.iser{
+	width: 690px;
+	height: 600;
+	padding: 0;
+	margin:0;
+}
+.iser textarea{
+	width: 685px;
+	height: 550px;
+	padding: 2px;
+	top: 2px;
+	background-color: rgb(62,62,50,0.1);
+	color: white
+}
+button{
+	opacity: 0.9;
+	position: center;
+	color:#272727;
+	font-size: 20px;
+	text-align: center;
+	width: 320px;
+	border: none;
+	outline: none;
+	height: 40px;
+	background:#898989;
+	font-family: lato;
+}
+button:hover{
+	cursor: pointer;
+	background-color: white;
+	color:#141415;
+}
+.stat{
+	position: absolute;
+	width: 100%;
+	bottom: 50px;
+}
+.stat input[type="text"]{
+	height: 40px;
+	width: 80px;
+	background-color: rgb(62,62,50,0.4);
+	color: white;
+	border:0;
+	}
+#mood{
+	font-size: 24px;
+}
